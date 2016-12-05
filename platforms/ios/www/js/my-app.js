@@ -23,7 +23,7 @@ var myApp = new Framework7({
             // }
             // else
                // img2 = "https://lh3.googleusercontent.com/ONPtz8Sl5q3Dg76NYDuX4TzukTYwXb_cdXEIjSoLFPY5xLKvVID08o4hS0yOUrmKgOTNoRd8lQ=w5120-h3200-rw-no";
-                img = "cdvfile://localhost/persistent/xivao/profile.jpg";
+                img = "cdvfile://localhost/persistent/apptest/profile.jpg";
 
             var template = Template7.compile(content);
             var resultContent = template({
@@ -57,7 +57,7 @@ $$(document).on('deviceready', function() {
     console.log("Device is ready!");
 
     // filepath = cordova.file.dataDirectory + "/xivao/gallery/pi-2.jpg";
-    // filepath = "cdvfile://localhost/persistent/xivao/gallery/pi-2.jpg";
+    // filepath = "cdvfile://localhost/persistent/apptest/gallery/pi-2.jpg";
     // myApp.alert("filepath: "+ filepath + " is " + fileExists(filepath));
 
     // Camera plugin
@@ -91,7 +91,7 @@ $$('#view-2').on('show', function () {
  //   	var d = new Date();
 	// var n = d.getMonth();
 	// var img = document.getElementById('tableBanner');
-	// var imgPath = "cdvfile://localhost/persistent/xivao/gallery/pi-" + n + ".jpg";
+	// var imgPath = "cdvfile://localhost/persistent/apptest/gallery/pi-" + n + ".jpg";
       document.getElementById("monthImage").src = document.getElementById("monthImage").src + "?" + Math.floor(Math.random() * 9);
 });
 
@@ -147,11 +147,11 @@ function getImageList(){
 	var imgList = [];
 	var d = new Date();
 	var n = d.getMonth();
-	//var imgPath = "cdvfile://localhost/persistent/xivao/gallery/pi-" + n + ".jpg";
+	//var imgPath = "cdvfile://localhost/persistent/apptest/gallery/pi-" + n + ".jpg";
     for(var count=0 ; count < 12 ; count++){
-    	//createImgItem("cdvfile://localhost/persistent/xivao/gallery/pi-" + n + ".jpg",imgList[count] , monthNames[n]);
+    	//createImgItem("cdvfile://localhost/persistent/apptest/gallery/pi-" + n + ".jpg",imgList[count] , monthNames[n]);
 	    imgList[count] = {
-	        url: "cdvfile://localhost/persistent/xivao/gallery/pi-" + n + ".jpg",
+	        url: "cdvfile://localhost/persistent/apptest/gallery/pi-" + n + ".jpg",
 	        caption: monthNames[n]
         };
         n--; // the month before this
@@ -266,7 +266,7 @@ function saveURLtoLocal(img) {
    //   img.src = "data:image/jpeg;base64," + getBase64Image(img);
 
         var imgURL = img.src;
-        var imgPath = "cdvfile://localhost/persistent/xivao/profile.jpg";
+        var imgPath = "cdvfile://localhost/persistent/apptest/profile.jpg";
         DownloadImgFromURL(imgPath, imgURL);
 
      // localStorage.setItem("imgProfile", img.src);
@@ -374,10 +374,10 @@ function saveImageToGallery(){
 	var d = new Date();
 	var n = d.getMonth();
 	var img = document.getElementById('tableBanner');
-	var imgPath = "cdvfile://localhost/persistent/xivao/gallery/pi-" + Math.floor(Math.random() * 11) + ".jpg";
+	var imgPath = "cdvfile://localhost/persistent/apptest/gallery/pi-" + Math.floor(Math.random() * 11) + ".jpg";
 //	myApp.alert(imgPath);
     DownloadImgFromURL(imgPath, img.src);
-   // listDir("cdvfile://localhost/persistent/xivao/gallery/");
+   // listDir("cdvfile://localhost/persistent/apptest/gallery/");
  //   listDir(cordova.file.applicationDirectory + "xivao/gallery/");
      document.getElementById("monthImage").src = imgPath; //+ "?" + Math.floor(Math.random() * 9);
 
@@ -459,7 +459,7 @@ function downloadImg(){
     //    document.getElementById("tableBanner").src = "https://lh3.googleusercontent.com/ONPtz8Sl5q3Dg76NYDuX4TzukTYwXb_cdXEIjSoLFPY5xLKvVID08o4hS0yOUrmKgOTNoRd8lQ=w5120-h3200-rw-no";
         //saveURLtoLocal(document.getElementById("tableBanner"));
         var imgURL = "https://graph.facebook.com/10207829362552322/picture?type=large";
-        var imgPath = "cdvfile://localhost/persistent/xivao/profile.jpg";
+        var imgPath = "cdvfile://localhost/persistent/apptest/profile.jpg";
 // console.log("Download cmd : " + imgURL);
         DownloadImgFromURL(imgPath, imgURL)
 }
@@ -489,7 +489,7 @@ function createImgItem(path, item, month){
 			},
 			function (){
 	    		item = {
-			        url: "cdvfile://localhost/persistent/xivao/profile.jpg",
+			        url: "cdvfile://localhost/persistent/apptest/profile.jpg",
 			        caption: month
 		        };
 		       	return;
