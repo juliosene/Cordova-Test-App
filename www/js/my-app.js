@@ -2,7 +2,7 @@
 var myApp = new Framework7({
     material: true,
     swipePanel: 'left',
-    modalTitle: 'XIVAO',
+    modalTitle: 'Camera-File Test',
     showBarsOnPageScrollEnd: false,
     upscroller: {text : 'Back to top'},
     preprocess: function (content, url, next) {
