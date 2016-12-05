@@ -43,6 +43,59 @@ var myApp = new Framework7({
     }
 });
 
+var appSettings = {
+		imgList: [
+			{
+		        url: "img/noimage.jpg",
+		        caption: "January"
+	        },			
+	        {
+		        url: "img/noimage.jpg",
+		        caption: "February"
+	        },			
+	        {
+		        url: "img/noimage.jpg",
+		        caption: "March"
+	        },			
+	        {
+		        url: "img/noimage.jpg",
+		        caption: "April"
+	        },			
+	        {
+		        url: "img/noimage.jpg",
+		        caption: "May"
+	        },			
+	        {
+		        url: "img/noimage.jpg",
+		        caption: "June"
+	        },			
+	        {
+		        url: "img/noimage.jpg",
+		        caption: "July"
+	        },			
+	        {
+		        url: "img/noimage.jpg",
+		        caption: "August"
+	        },			
+	        {
+		        url: "img/noimage.jpg",
+		        caption: "September"
+	        },			
+	        {
+		        url: "img/noimage.jpg",
+		        caption: "October"
+	        },			
+	        {
+		        url: "img/noimage.jpg",
+		        caption: "November"
+	        },			
+	        {
+		        url: "img/noimage.jpg",
+		        caption: "December"
+	        },
+		]
+}
+
 // If we need to use custom DOM library, let's save it to $$ variable:
 var $$ = Dom7;
 
@@ -59,7 +112,7 @@ $$(document).on('deviceready', function() {
     // filepath = cordova.file.dataDirectory + "/xivao/gallery/pi-2.jpg";
     // filepath = "cdvfile://localhost/persistent/apptest/gallery/pi-2.jpg";
     // myApp.alert("filepath: "+ filepath + " is " + fileExists(filepath));
-
+        appSettings = JSON.parse(window.localStorage.getItem('appSettings'));
     // Camera plugin
         pictureSource=navigator.camera.PictureSourceType;
         destinationType=navigator.camera.DestinationType;
@@ -108,7 +161,7 @@ myApp.onPageInit('camera', function (page) {
     // if(!(window.localStorage.getItem('imgProfile') === null)){
     //     document.getElementById('tableBanner').src = window.localStorage.getItem('imgProfile');
     //     document.getElementById('resultImg').innerHTML = window.localStorage.getItem('imgProfile');
-        
+
     // }
 
     	// document.getElementById('tableBanner').src = "";
@@ -161,12 +214,22 @@ function getImageList(){
     return imgList;
 }
 
-var myPhotoBrowserPopupDark = myApp.photoBrowser({
-    photos : getImageList(),
-    theme: 'dark',
-    type: 'standalone'
-});
+///// Photo Album Slideshow
+
+
+
 $$('.pb-standalone-captions').on('click', function () {
+		var myPhotoBrowserPopupDark = myApp.photoBrowser({
+	    photos : appSettings.imgList,
+	    theme: 'dark',
+	    type: 'standalone',
+	    lazyLoading: false,
+	    lazyLoadingInPrevNext: true,
+	    // onOpen: function(photobrowser){
+	    // 	myApp.alert("open");
+	    // 	photos = appSettings.imgList;
+	    // }
+	});
     myPhotoBrowserPopupDark.open();
 });
 
@@ -370,13 +433,19 @@ function DownloadImgFromURL (filePath, url) {
 }
 
 function saveImageToGallery(){
-	// myApp.alert("foi");
+	var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 	var d = new Date();
-	var n = d.getMonth();
+	var n =  Math.floor(Math.random() * 11); //d.getMonth();
 	var img = document.getElementById('tableBanner');
-	var imgPath = "cdvfile://localhost/persistent/apptest/gallery/pi-" + Math.floor(Math.random() * 11) + ".jpg";
+	var imgPath = "cdvfile://localhost/persistent/apptest/gallery/pi-" + n + ".jpg";
 //	myApp.alert(imgPath);
     DownloadImgFromURL(imgPath, img.src);
+    appSettings.imgList[n] = {
+        url: "cdvfile://localhost/persistent/apptest/gallery/pi-" + n + ".jpg",
+        caption: monthNames[n]
+    };
+    window.localStorage.setItem('appSettings', JSON.stringify(appSettings));
+    console.log("img list: " + JSON.stringify(appSettings.imgList, null, 2));
    // listDir("cdvfile://localhost/persistent/apptest/gallery/");
  //   listDir(cordova.file.applicationDirectory + "xivao/gallery/");
      document.getElementById("monthImage").src = imgPath; //+ "?" + Math.floor(Math.random() * 9);
