@@ -149,7 +149,11 @@ function getImageList(){
 	var n = d.getMonth();
 	//var imgPath = "cdvfile://localhost/persistent/xivao/gallery/pi-" + n + ".jpg";
     for(var count=0 ; count < 12 ; count++){
-    	createImgItem("cdvfile://localhost/persistent/xivao/gallery/pi-" + n + ".jpg", imgList[count], monthNames[n]);
+    	//createImgItem("cdvfile://localhost/persistent/xivao/gallery/pi-" + n + ".jpg",imgList[count] , monthNames[n]);
+	    imgList[count] = {
+	        url: "cdvfile://localhost/persistent/xivao/gallery/pi-" + n + ".jpg",
+	        caption: monthNames[n]
+        };
         n--; // the month before this
         if(n < 0)
         	n = 11; // December is 11
