@@ -21,6 +21,9 @@
         },
         "cordova-plugin-camera": {
             "PACKAGE_NAME": "com.phonegap.plugin.exemple"
+        },
+        "cordova-plugin-x-socialsharing": {
+            "PACKAGE_NAME": "com.phonegap.plugin.exemple"
         }
     },
     "dependent_plugins": {

@@ -112,7 +112,9 @@ $$(document).on('deviceready', function() {
     // filepath = cordova.file.dataDirectory + "/xivao/gallery/pi-2.jpg";
     // filepath = "cdvfile://localhost/persistent/apptest/gallery/pi-2.jpg";
     // myApp.alert("filepath: "+ filepath + " is " + fileExists(filepath));
-        appSettings = JSON.parse(window.localStorage.getItem('appSettings'));
+    	if( !(window.localStorage.getItem("appSettings") === null) ){
+	        appSettings = JSON.parse(window.localStorage.getItem('appSettings'));
+	    }
     // Camera plugin
         pictureSource=navigator.camera.PictureSourceType;
         destinationType=navigator.camera.DestinationType;
@@ -237,13 +239,22 @@ $$('.pb-standalone-captions').on('click', function () {
 //      To Canvas
 /************************************************************/
 function htmlToImage(){
-	pageToCanvas(document.getElementById('toRender'));
+	var page = 	document.getElementById('toRender');
+//	page.style="display:block;width:50%;";
+	pageToCanvas(page);
+//	page.style="display:block;width:100%;";
+	//window.plugins.socialsharing.share(null, 'Canvas Share', document.getElementById('monthImage').src, null);
+//	window.plugins.socialsharing.share('Message to share', 'Canvas Share', "cdvfile://localhost/persistent/apptest/canvas.jpg", null);
 }
 
 function pageToCanvas(html){
+//	html.style="display:block;width:50%;";
 	html2canvas(html, {
 	  onrendered: function(canvas) {
+	  	// DownloadImgFromURL("cdvfile://localhost/persistent/apptest/canvas.jpg",canvas.toDataURL("image/jpeg"));
+	//  	document.getElementById('monthImage').style="display:block;width:100%;";
 	    document.getElementById('monthImage').src = canvas.toDataURL("image/jpeg"); // "data:image/jpeg;base64," + canvas;
+	   	window.plugins.socialsharing.share('Message to share', 'Canvas Share', canvas.toDataURL("image/jpeg"), null);
 	  },
 	  allowTaint: true,
 	  background: '#ffffff'
@@ -330,7 +341,8 @@ function saveURLtoLocal(img) {
 
         var imgURL = img.src;
         var imgPath = "cdvfile://localhost/persistent/apptest/profile.jpg";
-        DownloadImgFromURL(imgPath, imgURL);
+        DownloadImgFromURL(imgPath, imgURL, img);
+        //img.src = imgPath + "?" + Math.floor(Math.random() * 99);
 
      // localStorage.setItem("imgProfile", img.src);
 
@@ -404,7 +416,7 @@ function saveURLtoLocal(img) {
 //   File Transfer Functions 
 /********************************************************/
 
-function DownloadImgFromURL (filePath, url) {
+function DownloadImgFromURL (filePath, url, imgToRefresh = false) {
 
     var fileTransfer = new FileTransfer();
     var uri = encodeURI(url);
@@ -415,8 +427,11 @@ function DownloadImgFromURL (filePath, url) {
         filePath,
         function(entry) {
             console.log("download complete: " + entry.fullPath);
+            if(imgToRefresh){
+            	imgToRefresh.src = filePath + "?" + Math.floor(Math.random() * 99);
             // add a randon number to prevent cache.
-            document.getElementById('tableBanner').src = filePath + "?" + Math.floor(Math.random() * 99);
+       //     document.getElementById('tableBanner').src = filePath + "?" + Math.floor(Math.random() * 99);
+   			}
         },
         function(error) {
             console.log("download error source " + error.source);
@@ -448,7 +463,17 @@ function saveImageToGallery(){
     console.log("img list: " + JSON.stringify(appSettings.imgList, null, 2));
    // listDir("cdvfile://localhost/persistent/apptest/gallery/");
  //   listDir(cordova.file.applicationDirectory + "xivao/gallery/");
-     document.getElementById("monthImage").src = imgPath; //+ "?" + Math.floor(Math.random() * 9);
+     document.getElementById("monthImage").src = "cdvfile://localhost/persistent/apptest/profile.jpg"; // imgPath; //+ "?" + Math.floor(Math.random() * 9);
+
+
+   //   	window.resolveLocalFileSystemURL(imgPath, 
+			// function (entry){
+			// 	var nativePath = entry.toURL();
+		 //    	document.getElementById("monthImage").src = nativePath;
+			// },
+			// function (){
+			//         document.getElementById("monthImage").src = "img/noimage.jpg";
+			// });
 
      view2.router.refreshPage();
 
